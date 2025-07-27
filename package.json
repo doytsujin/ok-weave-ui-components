@@ -1,6 +1,6 @@
 {
   "name": "weaveworks-ui-components",
-  "version": "0.22.8",
+  "version": "0.22.9",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -11,20 +11,23 @@
     "lint": "eslint src docs styleguide && stylelint src",
     "test": "jest",
     "build": "yarn build:theme && yarn build:utils && yarn build:components && yarn build:index",
-    "build:theme": "babel src/theme --out-dir lib/theme --ignore '**/*.test.js'",
-    "build:utils": "babel src/utils --out-dir lib/utils --ignore '**/*.test.js'",
-    "build:components": "babel src/components --out-dir lib/components --ignore '**/*.test.js,**/example.js'",
-    "build:index": "babel src/index.js --out-file lib/index.js",
+    "build:theme": "babel src/theme --out-dir dist/theme --extensions '.js,.jsx,.ts,.tsx' --source-maps --ignore '**/*.test.js'",
+    "build:utils": "babel src/utils --out-dir dist/utils --extensions '.js,.jsx,.ts,.tsx' --source-maps --ignore '**/*.test.js'",
+    "build:components": "babel src/components --out-dir dist/components --extensions '.js,.jsx,.ts,.tsx' --source-maps --ignore '**/*.test.js,**/example.js'",
+    "build:index": "babel src/index.js --out-file dist/index.js --source-maps",
     "prepublishOnly": "git push --follow-tags origin && yarn ci && yarn build",
     "postpublish": "yarn docs:publish",
     "release": "standard-version",
-    "docs:build": "export NODE_ENV=production; export RELEASE=true; rm -rf dist && webpack --config webpack.config.js",
-    "docs:copy-images": "cp -R src/images dist",
-    "docs:s3": "aws --profile default-mfa s3 sync ./dist/ s3://weaveworks-ui-components --acl public-read",
+    "docs:build": "export NODE_ENV=production; export RELEASE=true; rm -rf dist/docs && webpack --config webpack.config.js --output-path dist/docs",
+    "docs:copy-images": "cp -R src/images dist/docs/images",
+    "docs:s3": "aws --profile default-mfa s3 sync ./dist/docs/ s3://weaveworks-ui-components --acl public-read",
     "docs:publish": "yarn docs:build && yarn docs:copy-images && yarn docs:s3",
     "docs:analyze": "ANALYZE_BUNDLE=true yarn docs:build",
-    "start": "node bin/dev-server",
-    "prettify": "prettier --write '{src,docs,styleguide}/**/*.{js,jsx}'"
+    "storybook": "start-storybook -p 6006 -c .storybook",
+    "storybook:build": "build-storybook -o dist/storybook",
+    "start": "serve out",
+    "prettify": "prettier --write '{src,docs,styleguide}/**/*.{js,jsx}'",
+    "bootstrap": "yarn install --legacy-peer-deps && yarn remove extract-text-webpack-plugin && yarn add --dev mini-css-extract-plugin @babel/preset-typescript @storybook/react babel-loader @storybook/builder-webpack4 @storybook/manager-webpack4"
   },
   "jest": {
     "setupFiles": [
@@ -33,7 +36,18 @@
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "./dist/test",
+          "outputName": "junit.xml"
+        }
+      ]
+    ],
+    "coverageDirectory": "./dist/test/coverage"
   },
   "commitlint": {
     "extends": [
@@ -84,6 +98,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "7.27.1",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.1",
     "@fortawesome/fontawesome-free": "^5.5.0",
@@ -108,7 +123,6 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "7.6.1",
     "expect": "1.20.2",
-    "extract-text-webpack-plugin": "v4.0.0-beta.0",
     "faker": "^4.1.0",
     "file-loader": "^2.0.0",
     "highlight.js": "10.4.1",
@@ -119,6 +133,7 @@
     "less": "2.7.2",
     "lodash": "^4.17.12",
     "marked": "0.3.19",
+    "mini-css-extract-plugin": "^1.6.2",
     "moment": "2.21.0",
     "node-sass": "^4.14.1",
     "prettier": "1.15.2",
@@ -144,6 +159,11 @@
     "webpack": "^4.46.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "cheerio": "1.0.0-rc.12"
+  },
+  "resolutions": {
+    "cheerio": "1.0.0-rc.12",
+    "minimatch": "^3.0.8"
   }
 }
