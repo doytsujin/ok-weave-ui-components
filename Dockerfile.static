@@ -1,0 +1,10 @@
+# Dockerfile.static — Serve dist/ statically
+FROM nginx:alpine
+
+# Copy built assets to Nginx web root
+COPY dist/ /usr/share/nginx/html/
+
+# Expose the default HTTP port
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

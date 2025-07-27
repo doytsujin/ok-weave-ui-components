@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  ui-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    ports:
+      - "6006:6006"
+    command: npm run storybook

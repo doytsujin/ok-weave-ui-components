@@ -1,0 +1,14 @@
+# Ignore everything not needed in the image
+node_modules/
+*.tgz
+.npm/
+.nyc_output/
+coverage/
+.cache/
+*.log
+
+# Editor & OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
