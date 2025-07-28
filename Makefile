@@ -53,6 +53,12 @@ build:
 run:
 	$(DOCKER_RUN) $(IMAGE) sh -c "$(ENV) yarn install --legacy-peer-deps && $(ENV) yarn run $(SCRIPT)"
 
+serve:
+	$(DOCKER_RUN) \
+		-p 3000:3000 \
+		--name $(IMAGE) \
+		$(IMAGE) sh -c "yarn run start-npx"
+
 clean:
 	sudo rm -Rfv logs node_modules dist package-lock.json yarn.lock out
 

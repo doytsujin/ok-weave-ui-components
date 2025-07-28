@@ -25,7 +25,8 @@
     "docs:analyze": "ANALYZE_BUNDLE=true yarn docs:build",
     "storybook": "start-storybook -p 6006 -c .storybook",
     "storybook:build": "build-storybook -o dist/storybook",
-    "start": "serve out",
+    "start": "yarn add --dev serve; serve out",
+    "start-npx": "npx serve dist/docs",
     "prettify": "prettier --write '{src,docs,styleguide}/**/*.{js,jsx}'",
     "bootstrap": "yarn install --legacy-peer-deps && yarn remove extract-text-webpack-plugin && yarn add --dev mini-css-extract-plugin @babel/preset-typescript @storybook/react babel-loader @storybook/builder-webpack4 @storybook/manager-webpack4"
   },
@@ -108,6 +109,7 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-styled-components": "^1.10.7",
+    "cheerio": "1.0.0-rc.12",
     "css-loader": "^1.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -143,6 +145,7 @@
     "react-hot-loader": "4.3.7",
     "react-test-renderer": "16.9.0",
     "sass-loader": "7.1.0",
+    "serve": "14.2.4",
     "standard-version": "^9.3.0",
     "style-loader": "0.23.0",
     "styled-components": "^4.3.2",
@@ -159,8 +162,7 @@
     "webpack": "^4.46.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.2",
-    "cheerio": "1.0.0-rc.12"
+    "webpack-dev-server": "^3.11.2"
   },
   "resolutions": {
     "cheerio": "1.0.0-rc.12",
