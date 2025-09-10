@@ -1,0 +1,21 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var NodeBorder = function NodeBorder(renderTemplate, contrastMode, _ref) {
+  var hasMetric = _ref.hasMetric,
+    color = _ref.color;
+  return renderTemplate({
+    stroke: color,
+    style: {
+      fill: 'none',
+      strokeOpacity: hasMetric ? 0.5 : 1,
+      strokeWidth: contrastMode ? 0.15 : 0.12
+    },
+    transform: "scale(".concat(0.5, ")")
+  });
+};
+var _default = exports["default"] = NodeBorder;
+//# sourceMappingURL=_NodeBorder.js.map

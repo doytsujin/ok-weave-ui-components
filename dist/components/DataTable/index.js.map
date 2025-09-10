@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["_DataTable","_interopRequireDefault","require","e","__esModule"],"sources":["../../../src/components/DataTable/index.js"],"sourcesContent":["export default from './DataTable';\n"],"mappings":";;;;;;;;;;;AAAA,IAAAA,UAAA,GAAAC,sBAAA,CAAAC,OAAA;AAAkC,SAAAD,uBAAAE,CAAA,WAAAA,CAAA,IAAAA,CAAA,CAAAC,UAAA,GAAAD,CAAA,gBAAAA,CAAA","ignoreList":[]}
