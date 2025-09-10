@@ -11,7 +11,8 @@ DOCKER_RUN := podman run -it \
 	--volume "$(SRC)/:$(WORKDIR):Z" \
 	-w "$(WORKDIR)" \
 	-u root \
-	--rm --name $(IMAGE)
+	--rm --name $(IMAGE) \
+	-p 3000:3000
 
 ENV ?= NODE_ENV=development
 
